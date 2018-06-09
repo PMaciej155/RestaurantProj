@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.example.restaurantProj.Database;
+package com.example.restaurantProj.Database.Dao;
 
+import com.example.restaurantProj.Database.Model.Meal;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

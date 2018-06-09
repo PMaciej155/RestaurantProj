@@ -7,9 +7,9 @@ package com.example.restaurantProj;
  */
 
 
-import com.example.restaurantProj.Database.Category;
-import com.example.restaurantProj.Database.MealRepository;
-import com.example.restaurantProj.Database.CategoryRepository;
+import com.example.restaurantProj.Database.Model.Category;
+import com.example.restaurantProj.Database.Dao.MealRepository;
+import com.example.restaurantProj.Database.Dao.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

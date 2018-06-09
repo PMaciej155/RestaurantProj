@@ -5,10 +5,10 @@
  */
 package com.example.restaurantProj.Api;
 
-import com.example.restaurantProj.Database.Category;
-import com.example.restaurantProj.Database.CategoryRepository;
-import com.example.restaurantProj.Database.Meal;
-import com.example.restaurantProj.Database.MealRepository;
+import com.example.restaurantProj.Database.Model.Category;
+import com.example.restaurantProj.Database.Dao.CategoryRepository;
+import com.example.restaurantProj.Database.Model.Meal;
+import com.example.restaurantProj.Database.Dao.MealRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
