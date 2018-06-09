@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Database;
+package com.example.restaurantProj.Database;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;

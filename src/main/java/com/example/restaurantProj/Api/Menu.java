@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Api;
+package com.example.restaurantProj.Api;
 
-import Database.Category;
-import Database.CategoryRepository;
-import Database.Meal;
-import Database.MealRepository;
+import com.example.restaurantProj.Database.Category;
+import com.example.restaurantProj.Database.CategoryRepository;
+import com.example.restaurantProj.Database.Meal;
+import com.example.restaurantProj.Database.MealRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/API")
+@RequestMapping("/api")
 public class Menu {
 
 //    @Autowired

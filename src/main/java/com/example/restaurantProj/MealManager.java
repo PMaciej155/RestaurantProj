@@ -1,13 +1,15 @@
+package com.example.restaurantProj;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.example.restaurantProj;
 
-import Database.Category;
-import Database.MealRepository;
-import Database.CategoryRepository;
+
+import com.example.restaurantProj.Database.Category;
+import com.example.restaurantProj.Database.MealRepository;
+import com.example.restaurantProj.Database.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

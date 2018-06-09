@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Api;
+package com.example.restaurantProj.Api;
 
-import Database.Category;
+import com.example.restaurantProj.Database.Category;
 
 /**
  *
