@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
     
-    @RequestMapping("/login")
+    @RequestMapping("/")
     public ModelAndView createUserView() {
     ModelAndView mav = new ModelAndView();
     mav.setViewName("login");
