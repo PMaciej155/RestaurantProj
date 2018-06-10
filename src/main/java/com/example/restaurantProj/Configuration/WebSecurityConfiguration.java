@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  *
@@ -32,15 +33,15 @@ private MyUserDetailsService userDetailsService;
             throws Exception {
         auth.inMemoryAuthentication().withUser("admin")
                 .password("{noop}admin").roles("ADMIN");
-        
+
         auth.userDetailsService(userDetailsService);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/home").hasRole("ADMIN");
+                .antMatchers("/login", "/console").permitAll()
+                .antMatchers("/home").authenticated();
         http
         .formLogin()
         .loginPage("/login")

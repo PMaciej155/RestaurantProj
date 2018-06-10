@@ -39,7 +39,6 @@ public class User  implements Serializable{
     private String username;
     private String email;
     private String password;
-    private boolean enabled;
     private String secret;
           
     @ElementCollection
@@ -48,7 +47,6 @@ public class User  implements Serializable{
      public User() {
         super();
         this.secret = Base32.random();
-        this.enabled = false;
     }
      
      
@@ -108,19 +106,6 @@ public class User  implements Serializable{
         this.password = password;
     }
 
-    /**
-     * @return the enabled
-     */
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    /**
-     * @param enabled the enabled to set
-     */
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
 
     /**
      * @return the secret

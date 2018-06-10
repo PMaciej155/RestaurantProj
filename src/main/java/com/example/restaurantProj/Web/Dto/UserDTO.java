@@ -24,7 +24,7 @@ public class UserDTO {
     
     @NotNull
     @NotEmpty
-    private String passwordd;
+    private String password;
     
     @NotNull
     @NotEmpty
@@ -61,15 +61,15 @@ public class UserDTO {
     /**
      * @return the passwordd
      */
-    public String getPasswordd() {
-        return passwordd;
+    public String getPassword() {
+        return password;
     }
 
     /**
      * @param passwordd the passwordd to set
      */
-    public void setPasswordd(String passwordd) {
-        this.passwordd = passwordd;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     /**

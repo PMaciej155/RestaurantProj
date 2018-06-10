@@ -37,6 +37,8 @@ public class RegisterController {
             BindingResult result, 
             WebRequest request, 
             Errors errors){
+        System.out.println(accountDto.getPassword());
+        System.out.println(accountDto.getConfirmpassword());
     User registered = createUserAccount(accountDto, result);
     ModelAndView mav = new ModelAndView();
     UserDTO userdto = new UserDTO();
