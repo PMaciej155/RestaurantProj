@@ -37,6 +37,8 @@ public class UserService implements IUserService{
         User user = new User();
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
+        user.setPassword(userDto.getPasswordd());
+        user.setRoles(Arrays.asList("ROLE_USER"));
         return userrepository.save(user);  
     }
     private boolean emailExist(String email) {

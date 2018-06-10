@@ -5,8 +5,12 @@
  */
 package com.example.restaurantProj.Web.Controller;
 
+import com.example.restaurantProj.Database.Model.User;
+import com.example.restaurantProj.Service.Error.EmailExistsException;
+import com.example.restaurantProj.Service.UserService;
 import com.example.restaurantProj.Web.Dto.UserDTO;
 import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
@@ -25,16 +29,29 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/register")
 public class RegisterController {
     
+    @Autowired
+    UserService service;
+    
     @PostMapping
     public ModelAndView createUserView(@ModelAttribute("user") @Valid UserDTO accountDto,
             BindingResult result, 
             WebRequest request, 
             Errors errors){
-    System.out.println(accountDto.getUsername());
+    User registered = createUserAccount(accountDto, result);
     ModelAndView mav = new ModelAndView();
     UserDTO userdto = new UserDTO();
     mav.addObject("user", userdto);
     mav.setViewName("login");
     return mav; 
     }
+    
+    private User createUserAccount(UserDTO accountDto, BindingResult result) {
+    User registered = null;
+    try {
+        registered = service.registerNewUserAccount(accountDto);
+    } catch (EmailExistsException e) {
+        return null;
+    }
+    return registered;
+}
 }

@@ -5,6 +5,7 @@
  */
 package com.example.restaurantProj.Configuration;
 
+import com.example.restaurantProj.security.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -24,10 +25,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
+private MyUserDetailsService userDetailsService;
+    
+    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth)
             throws Exception {
         auth.inMemoryAuthentication().withUser("admin")
                 .password("{noop}admin").roles("ADMIN");
+        
+        auth.userDetailsService(userDetailsService);
     }
 
     @Override

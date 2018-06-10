@@ -8,6 +8,7 @@ package com.example.restaurantProj.Database.Model;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -41,9 +42,8 @@ public class User  implements Serializable{
     private boolean enabled;
     private String secret;
           
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Collection<Role> roles;
+    @ElementCollection
+    private Collection<String> roles;
     
      public User() {
         super();
@@ -139,14 +139,14 @@ public class User  implements Serializable{
     /**
      * @return the roles
      */
-    public Collection<Role> getRoles() {
+    public Collection<String> getRoles() {
         return roles;
     }
 
     /**
      * @param roles the roles to set
      */
-    public void setRoles(Collection<Role> roles) {
+    public void setRoles(Collection<String> roles) {
         this.roles = roles;
     }
 }
