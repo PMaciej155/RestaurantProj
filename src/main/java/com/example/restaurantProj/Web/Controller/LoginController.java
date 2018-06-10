@@ -16,10 +16,16 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
     
-    @RequestMapping("/")
-    public ModelAndView createUserView() {
+    @RequestMapping("/login")
+    public ModelAndView logInUserView() {
     ModelAndView mav = new ModelAndView();
     mav.setViewName("login");
+    return mav;
+  }
+    @RequestMapping("/home")
+    public ModelAndView homeView() {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("home");
     return mav;
   }
 }
