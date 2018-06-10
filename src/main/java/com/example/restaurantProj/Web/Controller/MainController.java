@@ -5,8 +5,10 @@
  */
 package com.example.restaurantProj.Web.Controller;
 
+import com.example.restaurantProj.Web.Dto.UserDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -14,18 +16,24 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Maciej
  */
 @Controller
-public class LoginController {
+public class MainController {
     
     @RequestMapping("/login")
     public ModelAndView logInUserView() {
-    ModelAndView mav = new ModelAndView();
+   ModelAndView mav = new ModelAndView();
+    UserDTO userdto = new UserDTO();
+    mav.addObject("user", userdto);
     mav.setViewName("login");
-    return mav;
+    return mav; 
   }
+    
+    
+    
     @RequestMapping("/home")
     public ModelAndView homeView() {
     ModelAndView mav = new ModelAndView();
     mav.setViewName("home");
     return mav;
   }
+    
 }

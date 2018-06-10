@@ -41,7 +41,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
+        <dependency>
+			<groupId>org.jboss.aerogear</groupId>
+			<artifactId>aerogear-otp-java</artifactId>
+			<version>1.0.0</version>
+			<scope>compile</scope>
+		</dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -63,6 +68,7 @@
             <artifactId>spring-boot-starter-security</artifactId>
             <version>1.2.0.RELEASE</version>
         </dependency>
+        
     </dependencies>
 
     <build>
