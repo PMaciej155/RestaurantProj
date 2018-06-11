@@ -21,6 +21,8 @@ public interface MealRepository extends JpaRepository<Meal, Long> {
 
 
     public List<Meal> getMealByLang(String lang);
+    
+    Meal findByName(String name);
 
 
     

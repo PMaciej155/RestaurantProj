@@ -26,13 +26,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-private MyUserDetailsService userDetailsService;
-    
+    private MyUserDetailsService userDetailsService;
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth)
             throws Exception {
-        auth.inMemoryAuthentication().withUser("admin")
-                .password("{noop}admin").roles("ADMIN");
 
         auth.userDetailsService(userDetailsService);
     }
@@ -40,16 +38,23 @@ private MyUserDetailsService userDetailsService;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/login", "/console").permitAll()
-                .antMatchers("/home").authenticated();
+                .antMatchers("/login").permitAll()
+                .antMatchers("/home").authenticated()
+                .antMatchers("/api/**", "/console").anonymous();
         http
-        .formLogin()
-        .loginPage("/login")
-        .loginProcessingUrl("/login")
-        .defaultSuccessUrl("/home")
-        .failureUrl("/login")
-      .and()
-        .logout()
-        .logoutSuccessUrl("/login");
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/home")
+                .failureUrl("/login")
+            .and()
+                .logout()
+                .logoutSuccessUrl("/login")
+            .and()
+                .rememberMe()
+                .key("rem-me-key")
+                .rememberMeParameter("remember")
+                .rememberMeCookieName("my-remember-me")
+                .tokenValiditySeconds(1209600);
     }
 }

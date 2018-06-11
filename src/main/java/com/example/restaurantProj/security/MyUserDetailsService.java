@@ -8,6 +8,7 @@ package com.example.restaurantProj.security;
 import com.example.restaurantProj.Database.Dao.UserRepository;
 import com.example.restaurantProj.Database.Model.User;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import javax.transaction.Transactional;
@@ -34,20 +35,20 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//         User user = userRepository.findByEmail(email);
+        
         BCryptPasswordEncoder encoder = passwordEncoder();
-        User user = userRepository.findByUsername(username);
+        User user = new User();
+        if(username.equals("admin")){
+            user.setUsername(username);
+            user.setPassword("admin");
+            user.setRoles(Arrays.asList("ROLE_ADMIN"));
+        }else{
+        user = userRepository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException(
                     "No user found with username: " + username);
         }
-        System.out.println(user.getUsername());
-        System.out.println(user.getPassword());
-        System.out.println(user.getRoles().isEmpty());
-        boolean enabled = true;
-        boolean accountNonExpired = true;
-        boolean credentialsNonExpired = true;
-        boolean accountNonLocked = true;
+        }
         return new org.springframework.security.core.userdetails.User(user.getUsername(),
                 encoder.encode(user.getPassword()),
                 getAuthorities(user.getRoles()));
