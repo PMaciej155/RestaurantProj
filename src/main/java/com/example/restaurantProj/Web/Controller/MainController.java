@@ -27,13 +27,5 @@ public class MainController {
     return mav; 
   }
     
-    
-    
-    @RequestMapping("/home")
-    public ModelAndView homeView() {
-    ModelAndView mav = new ModelAndView();
-    mav.setViewName("home");
-    return mav;
-  }
-    
+     
 }

@@ -109,7 +109,10 @@ public class MultiHttpSecurityConfig {
                     .key("rem-me-key")
                     .rememberMeParameter("remember")
                     .rememberMeCookieName("my-remember-me")
-                    .tokenValiditySeconds(1209600);
+                    .tokenValiditySeconds(1209600)
+                .and()
+                    .sessionManagement().invalidSessionUrl("/login").maximumSessions(1)
+                .expiredUrl("/login");
         }
 
     }
