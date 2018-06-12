@@ -6,6 +6,7 @@
 package com.example.restaurantProj.Web.Controller;
 
 import com.example.restaurantProj.Web.Dto.UserDTO;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,15 +18,24 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class MainController {
-    
+
     @RequestMapping("/login")
     public ModelAndView logInUserView() {
-   ModelAndView mav = new ModelAndView();
-    UserDTO userdto = new UserDTO();
-    mav.addObject("user", userdto);
-    mav.setViewName("login");
-    return mav; 
-  }
-    
-     
+        ModelAndView mav = new ModelAndView();
+        UserDTO userdto = new UserDTO();
+        mav.addObject("user", userdto);
+        mav.setViewName("login");
+        return mav;
+    }
+
+    @RequestMapping("/logout")
+    public ModelAndView logout() {
+        SecurityContextHolder.getContext().setAuthentication(null);
+        ModelAndView mav = new ModelAndView();
+        UserDTO userdto = new UserDTO();
+        mav.addObject("user", userdto);
+        mav.setViewName("login");
+        return mav;
+    }
+
 }

@@ -34,4 +34,6 @@ public class HomeController {
     private List<Meal> getMealsByLang(String lang){
         return mealrepo.getMealByLang(lang);
     }
+    
+    
 }

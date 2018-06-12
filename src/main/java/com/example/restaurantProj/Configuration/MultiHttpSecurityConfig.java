@@ -103,16 +103,15 @@ public class MultiHttpSecurityConfig {
                     .failureUrl("/login")
                 .and()
                     .logout()
+                    .logoutUrl("/logout")
+                    .deleteCookies("my-remember-me")
                     .logoutSuccessUrl("/login")
                 .and()
                     .rememberMe()
                     .key("rem-me-key")
                     .rememberMeParameter("remember")
                     .rememberMeCookieName("my-remember-me")
-                    .tokenValiditySeconds(1209600)
-                .and()
-                    .sessionManagement().invalidSessionUrl("/login").maximumSessions(1)
-                .expiredUrl("/login");
+                    .tokenValiditySeconds(1209600);
         }
 
     }
