@@ -38,16 +38,10 @@ public class MyUserDetailsService implements UserDetailsService {
         
         BCryptPasswordEncoder encoder = passwordEncoder();
         User user = new User();
-        if(username.equals("admin")){
-            user.setUsername(username);
-            user.setPassword("admin");
-            user.setRoles(Arrays.asList("ROLE_ADMIN"));
-        }else{
         user = userRepository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException(
                     "No user found with username: " + username);
-        }
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(),
                 encoder.encode(user.getPassword()),

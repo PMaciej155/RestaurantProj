@@ -19,28 +19,29 @@ import org.springframework.stereotype.Service;
  * @author Maciej
  */
 @Service
-public class UserService implements IUserService{
-    
+public class UserService implements IUserService {
+
     @Autowired
     UserRepository userrepository;
-    
+
     @Transactional
     @Override
-    public User registerNewUserAccount(UserDTO userDto) 
-      throws EmailExistsException {
-         
-        if (emailExist(userDto.getEmail())) {  
+    public User registerNewUserAccount(UserDTO userDto)
+            throws EmailExistsException {
+
+        if (emailExist(userDto.getEmail())) {
             throw new EmailExistsException(
-              "There is an account with that email adress: "
-              +  userDto.getEmail());
+                    "There is an account with that email adress: "
+                    + userDto.getEmail());
         }
         User user = new User();
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
         user.setRoles(Arrays.asList("ROLE_USER"));
-        return userrepository.save(user);  
+        return userrepository.save(user);
     }
+
     private boolean emailExist(String email) {
         User user = userrepository.findByEmail(email);
         if (user != null) {

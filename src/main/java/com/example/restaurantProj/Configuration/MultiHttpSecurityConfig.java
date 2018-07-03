@@ -91,10 +91,14 @@ public class MultiHttpSecurityConfig {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
+            http.headers().frameOptions().disable();
+            http.csrf().disable();
             http.authorizeRequests()
                     .antMatchers("/login").permitAll()
-                    .antMatchers("/home").authenticated()
-                    .antMatchers("/console").anonymous();
+                    .antMatchers("/home").authenticated();
+            
+            http.authorizeRequests()
+                    .antMatchers("/console/**").hasRole("ADMIN");
             http
                     .formLogin()
                     .loginPage("/login")

@@ -6,6 +6,7 @@
 package com.example.restaurantProj.Web.Dto;
 
 import com.example.restaurantProj.Database.Model.Meal;
+import com.example.restaurantProj.Database.Model.Meal.MealType;
 
 /**
  *
@@ -14,15 +15,17 @@ import com.example.restaurantProj.Database.Model.Meal;
 //REST layer representation of Meal
 public class MealDTO {
 
+    
+    
     private String name;
     private float price;
-    private String lang;
+    private MealType type;
     
 
     public static MealDTO fromMeal(Meal meal){
         MealDTO dto = new MealDTO();
         dto.setName(meal.getName());
-        dto.setLang(meal.getLang());
+        dto.setType(meal.getType());
         dto.setPrice(meal.getPrice());
         return dto;
     }
@@ -55,18 +58,22 @@ public class MealDTO {
     }
 
     /**
-     * @return the lang
+     * @return the type
      */
-    public String getLang() {
-        return lang;
+    public MealType getType() {
+        return type;
     }
 
     /**
-     * @param lang the lang to set
+     * @param type the type to set
      */
-    public void setLang(String lang) {
-        this.lang = lang;
+    public void setType(MealType type) {
+        this.type = type;
     }
+
+    
+
+    
     
    
     

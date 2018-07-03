@@ -19,14 +19,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MealRepository extends JpaRepository<Meal, Long> {
 
-
-    public List<Meal> getMealByLang(String lang);
-    
     Meal findByName(String name);
 
-
+//    @Query(value = "SELECT * FROM  Meal meal WHERE meal.id > :id", nativeQuery = true)
+//    public List<Meal> getMealminID(@Param("id") int id);
     
-    @Query(value = "SELECT * FROM  Meal meal WHERE meal.id > :id", nativeQuery = true)
-    public List<Meal> getMealminID(@Param("id") int id);
-
+    @Override
+    void delete(Meal meal);
 }
