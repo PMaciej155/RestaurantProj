@@ -6,62 +6,57 @@
 package com.example.restaurantProj.Web.Dto;
 
 import com.example.restaurantProj.Database.Model.Order;
+import com.example.restaurantProj.Database.Model.Order.OrderStatus;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  *
  * @author Maciej
  */
 public class OrderDTO {
-
-    private Long numberOrder;
-
-    private Long table;
-
+    
+    private Long id;
+    
     private String client;
-
-    private String meal;
-
-    private long quantity;
     
-    private String status;
+    private Map<Long, Integer> meals = new HashMap<Long, Integer>();
     
-    public static OrderDTO fromOrder(Order order){
+    private OrderStatus status;
+    
+    private AddressDTO address;
+    private float price;
+    
+    public static OrderDTO fromOrder(Order order) {
         OrderDTO orderdto = new OrderDTO();
-        orderdto.setNumberOrder(order.getNumberOrder());
-        orderdto.setTable(order.getTable().getNumberTable());
+        orderdto.setId(order.getId());
+        orderdto.setAddress(AddressDTO.fromAddress(order.getAddress()));
         orderdto.setClient(order.getClient().getUsername());
-        orderdto.setMeal(order.getMeal().getName());
-        orderdto.setQuantity(order.getQuantity());
-        orderdto.setStatus(order.getStatus().name());
+        orderdto.setMeal(order.getMeal().entrySet().stream()
+                .collect(Collectors.toMap(
+                        e -> e.getKey().getId(),
+                        e -> e.getValue())));
+        orderdto.setStatus(order.getStatus());
+        orderdto.setPrice(order.getPrice());
         return orderdto;
     }
 
+    public boolean isSelected(OrderStatus status) {
+    return status.equals(this.status);
+    }
     /**
-     * @return the numberOrder
+     * @return the id
      */
-    public Long getNumberOrder() {
-        return numberOrder;
+    public Long getId() {
+        return id;
     }
 
     /**
-     * @param numberOrder the numberOrder to set
+     * @param id the id to set
      */
-    public void setNumberOrder(Long numberOrder) {
-        this.numberOrder = numberOrder;
-    }
-
-    /**
-     * @return the table
-     */
-    public Long getTable() {
-        return table;
-    }
-
-    /**
-     * @param table the table to set
-     */
-    public void setTable(Long table) {
-        this.table = table;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     /**
@@ -81,42 +76,56 @@ public class OrderDTO {
     /**
      * @return the meal
      */
-    public String getMeal() {
-        return meal;
+    public Map<Long, Integer> getMeal() {
+        return meals;
     }
 
     /**
      * @param meal the meal to set
      */
-    public void setMeal(String meal) {
-        this.meal = meal;
-    }
-
-    /**
-     * @return the quantity
-     */
-    public long getQuantity() {
-        return quantity;
-    }
-
-    /**
-     * @param quantity the quantity to set
-     */
-    public void setQuantity(long quantity) {
-        this.quantity = quantity;
+    public void setMeal(Map<Long, Integer> meals) {
+        this.meals = meals;
     }
 
     /**
      * @return the status
      */
-    public String getStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
 
     /**
      * @param status the status to set
      */
-    public void setStatus(String status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
+    }
+
+    /**
+     * @return the address
+     */
+    public AddressDTO getAddress() {
+        return address;
+    }
+
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(AddressDTO address) {
+        this.address = address;
+    }
+
+    /**
+     * @return the price
+     */
+    public float getPrice() {
+        return price;
+    }
+
+    /**
+     * @param price the price to set
+     */
+    public void setPrice(float price) {
+        this.price = price;
     }
 }

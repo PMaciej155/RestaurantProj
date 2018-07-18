@@ -16,19 +16,35 @@ import com.example.restaurantProj.Database.Model.Meal.MealType;
 public class MealDTO {
 
     
-    
+    private Long Id;
     private String name;
+    private String description;
     private float price;
     private MealType type;
-    
 
     public static MealDTO fromMeal(Meal meal){
         MealDTO dto = new MealDTO();
+        dto.setId(meal.getId());
         dto.setName(meal.getName());
+        dto.setDescription(meal.getDescription());
         dto.setType(meal.getType());
         dto.setPrice(meal.getPrice());
         return dto;
     }
+     /**
+     * @return the Id
+     */
+    public Long getId() {
+        return Id;
+    }
+
+    /**
+     * @param Id the Id to set
+     */
+    public void setId(Long Id) {
+        this.Id = Id;
+    }
+    
     /**
      * @return the name
      */
@@ -43,6 +59,16 @@ public class MealDTO {
         this.name = name;
     }
 
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
     /**
      * @return the price
      */
@@ -71,10 +97,4 @@ public class MealDTO {
         this.type = type;
     }
 
-    
-
-    
-    
-   
-    
 }

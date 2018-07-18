@@ -7,12 +7,14 @@ package com.example.restaurantProj.Service;
 
 import com.example.restaurantProj.Database.Dao.MealRepository;
 import com.example.restaurantProj.Database.Model.Meal;
+import com.example.restaurantProj.Database.Model.Meal.MealType;
 import com.example.restaurantProj.Web.Dto.MealDTO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,29 +22,26 @@ import org.springframework.stereotype.Service;
  * @author Maciej
  */
 @Service
+
 public class MealService {
 
     @Autowired
     private MealRepository mealrepo;
-
-    public MealDTO getMeal(String name) {
-        return MealDTO.fromMeal(mealrepo.findByName(name));
+    
+    @Transactional
+    public MealDTO getMeal(Long id) {
+        return MealDTO.fromMeal(mealrepo.findById(id).get());
+    }
+    
+    @Transactional
+    public List<MealDTO> getMealByType(MealType type) {
+        List<MealDTO> meals = mealrepo.findByType(type).stream()
+                .map(x -> MealDTO.fromMeal(x))
+                .collect(Collectors.toList());
+        return meals;
     }
 
-//    public List<MealDTO> getMealWithLang(String lan) {
-//        List<MealDTO> meals = mealrepo.getMealByLang(lan).stream()
-//                .map(x -> MealDTO.fromMeal(x))
-//                .collect(Collectors.toList());
-//        return meals;
-//    }
-//
-//    public List<MealDTO> countedMenuTo(int to) {
-//        return mealrepo.findAll().stream()
-//                .limit(to)
-//                .map(x -> MealDTO.fromMeal(x))
-//                .collect(Collectors.toList());
-//    }
-    
+    @Transactional
     public List<MealDTO> getMeals(){
         return mealrepo.findAll().stream()
                 .map(x -> MealDTO.fromMeal(x))

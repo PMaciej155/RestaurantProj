@@ -5,6 +5,8 @@
  */
 package com.example.restaurantProj.Web.Dto;
 
+import com.example.restaurantProj.Validation.ValidEmail;
+import com.example.restaurantProj.Validation.PasswordMatches;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -12,12 +14,14 @@ import javax.validation.constraints.NotNull;
  *
  * @author Maciej
  */
+@PasswordMatches
 public class UserDTO {
 
     @NotNull
     @NotEmpty
     private String username;
     
+    @ValidEmail
     @NotNull
     @NotEmpty
     private String email;

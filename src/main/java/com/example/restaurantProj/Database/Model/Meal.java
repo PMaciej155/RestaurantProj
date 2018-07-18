@@ -35,7 +35,7 @@ public class Meal implements Serializable {
     public static enum MealType {
         BREAKFAST,
         DINNER,
-        SOUP,
+        BRUNCH,
         SUPPER;
     }
 
@@ -44,6 +44,7 @@ public class Meal implements Serializable {
     private long id;
 
     private String name;
+    private String description;
     private float price;
     
     @Enumerated(EnumType.STRING)
@@ -52,14 +53,16 @@ public class Meal implements Serializable {
 
     
 
-    public Meal(String name, float price, MealType type) {
+    public Meal(String name, String description, float price, MealType type) {
         this.name = name;
+        this.description = description;
         this.price = price;
         this.type = type;
     }
 
     public static Meal fromMealDTO(MealDTO mealdto) {
         return new Meal(mealdto.getName(),
+                mealdto.getDescription(),
                 mealdto.getPrice(),
                 mealdto.getType());
     }
@@ -93,6 +96,20 @@ public class Meal implements Serializable {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**

@@ -6,6 +6,13 @@
 package com.example.restaurantProj.Database.Model;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,7 +20,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -28,23 +39,24 @@ public class Order implements Serializable{
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     
-    private Long numberOrder;
     
     @ManyToOne
-    private RestaurantTable table;
+    private Address address;
     
     @ManyToOne
     private User client;
+    private float price;
     
-    @ManyToOne
-    private Meal meal;
-    
-    private long quantity;
+    @ElementCollection
+    @CollectionTable(name="MEAL_QUANTITY")
+    @MapKeyJoinColumn(name="MEAL_ID")
+    @Column(name="QUANTITY")
+    private Map<Meal, Integer> meals = new HashMap<Meal, Integer>();
     
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private OrderStatus status;
 
-    public enum Status{
+    public static enum OrderStatus{
        ACCEPTED, WAITING, DONE;
     }
     
@@ -58,37 +70,23 @@ public class Order implements Serializable{
         this.id = id;
     }
     
-    
 
     /**
-     * @return the numberOrder
+     * @return the address
      */
-    public Long getNumberOrder() {
-        return numberOrder;
+    public Address getAddress() {
+        return address;
     }
 
     /**
-     * @param numberOrder the numberOrder to set
+     * @param address the address to set
      */
-    public Order withNumberOrder(Long numberOrder) {
-        this.numberOrder = numberOrder;
+    public Order withAddress(Address address) {
+        this.address = address;
         return this;
     }
 
-    /**
-     * @return the table
-     */
-    public RestaurantTable getTable() {
-        return table;
-    }
-
-    /**
-     * @param table the table to set
-     */
-    public Order withTable(RestaurantTable table) {
-        this.table = table;
-        return this;
-    }
+   
 
     /**
      * @return the client
@@ -108,46 +106,45 @@ public class Order implements Serializable{
     /**
      * @return the meal
      */
-    public Meal getMeal() {
-        return meal;
+    public Map<Meal, Integer> getMeal() {
+        return meals;
     }
 
     /**
      * @param meal the meal to set
      */
-    public Order withMeal(Meal meal) {
-        this.meal = meal;
-        return this;
-    }
-
-    /**
-     * @return the quantity
-     */
-    public long getQuantity() {
-        return quantity;
-    }
-
-    /**
-     * @param quantity the quantity to set
-     */
-    public Order withQuantity(long quantity) {
-        this.quantity = quantity;
+    public Order withMeal(Map<Meal, Integer> meals) {
+        this.meals = meals;
         return this;
     }
 
     /**
      * @return the status
      */
-    public Status getStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
 
     /**
      * @param status the status to set
      */
-    public Order withStatus(Status status) {
+    public Order withStatus(OrderStatus status) {
         this.status = status;
         return this;
+    }
+
+    /**
+     * @return the price
+     */
+    public float getPrice() {
+        return price;
+    }
+
+    /**
+     * @param price the price to set
+     */
+    public void setPrice(float price) {
+        this.price = price;
     }
     
 }

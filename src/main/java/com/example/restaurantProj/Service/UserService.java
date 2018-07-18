@@ -12,6 +12,8 @@ import com.example.restaurantProj.Web.Dto.UserDTO;
 import java.util.Arrays;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
  * @author Maciej
  */
 @Service
+
 public class UserService implements IUserService {
 
     @Autowired
@@ -37,7 +40,7 @@ public class UserService implements IUserService {
         User user = new User();
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
+        user.setPassword(hashPassword(userDto.getPassword()));
         user.setRoles(Arrays.asList("ROLE_USER"));
         return userrepository.save(user);
     }
@@ -49,4 +52,8 @@ public class UserService implements IUserService {
         }
         return false;
     }
+    
+    private String hashPassword(String plainTextPassword){
+		return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
+	}
 }

@@ -5,7 +5,8 @@
  */
 package com.example.restaurantProj.Database.Dao;
 
-import com.example.restaurantProj.Database.Model.RestaurantTable;
+import com.example.restaurantProj.Database.Model.Address;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +15,8 @@ import org.springframework.stereotype.Repository;
  * @author Maciej
  */
 @Repository
-public interface TableRepository extends JpaRepository<RestaurantTable, Long>{
+public interface AddressRepository extends JpaRepository<Address, Long>{
     
-   public RestaurantTable findByNumberTable(long number);
+   public List<Address> findByCity(String city);
+
 }

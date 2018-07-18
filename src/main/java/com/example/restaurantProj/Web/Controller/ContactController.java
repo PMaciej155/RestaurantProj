@@ -5,11 +5,8 @@
  */
 package com.example.restaurantProj.Web.Controller;
 
-import com.example.restaurantProj.Service.MealService;
-import com.example.restaurantProj.Web.Dto.MealDTO;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,17 +15,14 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Maciej
  */
 @Controller
-public class HomeController {
-    @Autowired
-    private MealService mealService;
+@RequestMapping("/contact")
+public class ContactController {
     
-      @RequestMapping({"/home","/"})
-    public ModelAndView homeView() {
-    ModelAndView mav = new ModelAndView();
-    mav.setViewName("home");
-    return mav;
-  }
-    
-    
+    @GetMapping
+    public ModelAndView getContacytView() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("contact");
+        return mav;
+    }
     
 }

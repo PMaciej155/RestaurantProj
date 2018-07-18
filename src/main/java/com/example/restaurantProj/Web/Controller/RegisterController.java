@@ -14,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,32 +31,59 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/register")
 public class RegisterController {
-    
+
     @Autowired
     UserService service;
-    
+
+    @GetMapping
+    public ModelAndView getRegisterView() {
+        ModelAndView mav = new ModelAndView();
+        UserDTO userDto = new UserDTO();
+        mav.addObject("user", userDto);
+        mav.setViewName("register");
+        return mav;
+    }
+
     @PostMapping
     public ModelAndView createUserView(@ModelAttribute("user") @Valid UserDTO accountDto,
-            BindingResult result, 
-            WebRequest request, 
-            Errors errors){
-        System.out.println(accountDto.getPassword());
-        System.out.println(accountDto.getConfirmpassword());
-    User registered = createUserAccount(accountDto, result);
-    ModelAndView mav = new ModelAndView();
-    UserDTO userdto = new UserDTO();
-    mav.addObject("user", userdto);
-    mav.setViewName("login");
-    return mav; 
+            BindingResult result,
+            WebRequest request,
+            Errors errors) {
+
+        User registered = new User();
+        if (!result.hasErrors()) {
+            registered = createUserAccount(accountDto, result);
+        }
+        if (registered == null) {
+            result.rejectValue("email", "Wysapil blad");
+        }
+        if (result.hasErrors()) {
+            for (Object object : result.getAllErrors()) {
+                if (object instanceof FieldError) {
+                    FieldError fieldError = (FieldError) object;
+
+                    System.out.println(fieldError.getCode());
+                }
+
+                if (object instanceof ObjectError) {
+                    ObjectError objectError = (ObjectError) object;
+
+                    System.out.println(objectError.getCode());
+                }
+            }
+            return new ModelAndView("register", "user", accountDto);
+        } else {
+            return new ModelAndView("home");
+        }
     }
-    
+
     private User createUserAccount(UserDTO accountDto, BindingResult result) {
-    User registered = null;
-    try {
-        registered = service.registerNewUserAccount(accountDto);
-    } catch (EmailExistsException e) {
-        return null;
+        User registered = null;
+        try {
+            registered = service.registerNewUserAccount(accountDto);
+        } catch (EmailExistsException e) {
+            return null;
+        }
+        return registered;
     }
-    return registered;
-}
 }

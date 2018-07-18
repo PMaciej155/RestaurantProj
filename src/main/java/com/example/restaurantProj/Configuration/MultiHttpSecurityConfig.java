@@ -20,6 +20,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  *
@@ -94,11 +95,11 @@ public class MultiHttpSecurityConfig {
             http.headers().frameOptions().disable();
             http.csrf().disable();
             http.authorizeRequests()
-                    .antMatchers("/login").permitAll()
-                    .antMatchers("/home").authenticated();
+                    .antMatchers("/login", "/home", "/contact", "/register", "/menu").permitAll()
+                    .antMatchers("/myorder/**").authenticated();
             
             http.authorizeRequests()
-                    .antMatchers("/console/**").hasRole("ADMIN");
+                    .antMatchers("/console/**", "/order/**").hasRole("ADMIN");
             http
                     .formLogin()
                     .loginPage("/login")
@@ -107,15 +108,11 @@ public class MultiHttpSecurityConfig {
                     .failureUrl("/login")
                 .and()
                     .logout()
-                    .logoutUrl("/logout")
-                    .deleteCookies("my-remember-me")
-                    .logoutSuccessUrl("/login")
-                .and()
-                    .rememberMe()
-                    .key("rem-me-key")
-                    .rememberMeParameter("remember")
-                    .rememberMeCookieName("my-remember-me")
-                    .tokenValiditySeconds(1209600);
+                    .invalidateHttpSession(true)
+                    .clearAuthentication(true)
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/logout-success")
+                    ;
         }
 
     }

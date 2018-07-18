@@ -30,11 +30,11 @@ public class MealRESTapi {
     @Autowired
     MealService mealService;
 
-    @RequestMapping("/hello")
-    @ResponseBody
-    public MealDTO hello() {
-        return mealService.getMeal("Szakszuka");
-    }
+//    @RequestMapping("/hello")
+//    @ResponseBody
+//    public MealDTO hello() {
+//        return mealService.getMeal("Szakszuka");
+//    }
 
     @GetMapping
     @ResponseBody
